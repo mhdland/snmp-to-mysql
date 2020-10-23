@@ -52,7 +52,7 @@ for x in myresult:
 		hc_out = session.get(('ifHCOutOctets', intf[2])).value
 		cursor.execute("select * from snmp_last_value where device_id="+str(x[0])+" and interface_id="+str(intf[2]))
 		lstval = cursor.fetchone()
-		if lstval is None:
+		if len(lstval) == 0:
 			try:
 				cursor.execute("insert into snmp_last_value (device_id,interface_id,last_val_in,last_val_out) values (%s,%s,%s,%s)",(str(x[0]),str(intf[2]),int(hc_in),int(hc_out)))
 				db.commit()
